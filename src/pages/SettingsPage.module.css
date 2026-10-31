@@ -1,0 +1,2 @@
+.page{min-width:0}
+.page :global(.settings-grid){align-items:start}
