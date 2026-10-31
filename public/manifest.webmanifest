@@ -1,0 +1,23 @@
+{
+  "name": "My Garden Notebook",
+  "short_name": "My Garden",
+  "description": "A cozy space for projects, tasks, notes, and journaling.",
+  "id": "/MyGardenNoteBook/",
+  "start_url": "/MyGardenNoteBook/",
+  "scope": "/MyGardenNoteBook/",
+  "display": "standalone",
+  "background_color": "#fffdfa",
+  "theme_color": "#e4ebd5",
+  "icons": [
+    {
+      "src": "./favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
