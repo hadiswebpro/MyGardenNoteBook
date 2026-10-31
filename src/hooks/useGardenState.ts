@@ -13,17 +13,18 @@ export default function useGardenState(){
  const[page,setPage]=useState<Page>("Dashboard"),[mobile,setMobile]=useState(false),[search,setSearch]=useState(""),[filter,setFilter]=useState(""),[noteKind,setNoteKind]=useState<"note"|"journal">("note"),[month,setMonth]=useState(new Date());
  const[sidebarCollapsed,setSidebarCollapsed]=useState(false);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
+ const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);
  const{dark,setDark}=useTheme();
  const upcoming=useMemo(()=>data.tasks.filter(t=>!t.done).sort((a,b)=>a.due.localeCompare(b.due)),[data.tasks]);
  const progress=(id:string)=>projectProgress(data.tasks,id);
  const go=(next:Page)=>{setPage(next);setSearch("");setFilter("");setMobile(false);};
- const open=(type:EditorKind,id?:string)=>{setEditing(id??null);let next=blankForm();
+ const open=(type:EditorKind,id?:string)=>{setEditing(id??null);setProjectTaskDrafts([]);let next=blankForm();
  if(type==="project"){const p=data.projects.find(x=>x.id===id);if(p)next={...next,title:p.name,description:p.description,color:p.color};}
  if(type==="task"){const t=data.tasks.find(x=>x.id===id);if(t)next={...next,title:t.title,projectId:t.projectId,due:t.due};}
  if(type==="note"){const n=data.notes.find(x=>x.id===id);if(n)next={...next,title:n.title,content:n.content,color:n.color,date:n.date,kind:n.kind};else next.kind=noteKind;}
  setForm(next);setModal(type);};
  const save=(e:FormEvent)=>{e.preventDefault();if(!modal||!form.title.trim())return;const id=editing??crypto.randomUUID();
- if(modal==="project"){const p:Project={id,name:form.title.trim(),description:form.description,color:form.color};setData(d=>({...d,projects:editing?d.projects.map(x=>x.id===id?p:x):[...d.projects,p]}));}
+ if(modal==="project"){const p:Project={id,name:form.title.trim(),description:form.description,color:form.color};setData(d=>({...d,projects:editing?d.projects.map(x=>x.id===id?p:x):[...d.projects,p],tasks:[...d.tasks,...projectTaskDrafts.filter(title=>title.trim()).map(title=>({id:crypto.randomUUID(),title:title.trim(),projectId:id,due:today(),done:false}))]}));}
  if(modal==="task"){const t:Task={id,title:form.title.trim(),projectId:form.projectId,due:form.due,done:editing?!!data.tasks.find(x=>x.id===id)?.done:false};setData(d=>({...d,tasks:editing?d.tasks.map(x=>x.id===id?t:x):[...d.tasks,t]}));}
  if(modal==="note"){const n:Note={id,title:form.title.trim(),content:form.content,color:form.color,date:form.date,kind:form.kind,pinned:editing?!!data.notes.find(x=>x.id===id)?.pinned:false};setData(d=>({...d,notes:editing?d.notes.map(x=>x.id===id?n:x):[n,...d.notes]}));}
  setModal(null);};
@@ -32,5 +33,5 @@ export default function useGardenState(){
  const toggleTask=(id:string)=>setData(d=>({...d,tasks:d.tasks.map(t=>t.id===id?{...t,done:!t.done}:t)}));
  const togglePin=(id:string)=>setData(d=>({...d,notes:d.notes.map(n=>n.id===id?{...n,pinned:!n.pinned}:n)}));
  const importData=async(file?:File)=>{if(!file)return;try{const value:unknown=JSON.parse(await file.text());if(!isGardenData(value))throw Error("Invalid backup");if(window.confirm("Replace current data with this backup?"))setData(value);}catch{window.alert("Invalid backup file.");}};
- return{data,page,setPage,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
+ return{data,page,setPage,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,projectTaskDrafts,setProjectTaskDrafts,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
 }
