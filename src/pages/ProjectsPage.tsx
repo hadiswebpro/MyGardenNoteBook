@@ -1,3 +1,4 @@
+import styles from "./ProjectsPage.module.css";
 import {useGarden} from "../context/GardenContext";
 import {Plus,ArrowUpRight,FolderKanban,Check,Clock,NotebookPen,ChevronLeft,ChevronRight,Moon,Sun,Download,Upload,Search} from "lucide-react";
-export default function ProjectsPage(){const {data,page,dark,setDark,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,progress,upcoming,go,open,taskRow,projectCard,noteCard,exportData,importData,monthLabel,offset,days,today}=useGarden();return (<div className="projects-grid">{data.projects.filter(p=>(p.name+" "+p.description).toLowerCase().includes(search.toLowerCase())).map(projectCard)}</div>);}
+export default function ProjectsPage(){const {data,page,dark,setDark,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,progress,upcoming,go,open,taskRow,projectCard,noteCard,exportData,importData,monthLabel,offset,days,today}=useGarden();return (<div className={styles.page}><div className="projects-grid">{data.projects.filter(p=>(p.name+" "+p.description).toLowerCase().includes(search.toLowerCase())).map(projectCard)}</div></div>);}
