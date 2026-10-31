@@ -3,3 +3,14 @@
 /* Keep the navigation reachable on short mobile screens and allow the panel to scroll independently. */
 @media(max-width:900px){.sidebar{top:0;bottom:0;max-height:100dvh;overflow-x:hidden;overflow-y:auto;touch-action:pan-y}.sidebar nav{flex-shrink:0}.brand{padding-bottom:28px}.mobile-close{position:relative;z-index:2}}
 @media(max-height:650px){.brand{padding-bottom:18px}.sidebar{padding-top:18px;padding-bottom:18px}.side-quote{padding:12px}.sidebar-bottom{padding-top:16px}}
+
+/* Desktop sidebar collapses to a compact, icon-only rail. */
+@media(min-width:901px){
+.sidebar{transition:width .24s ease,padding .24s ease}
+.collapsed{width:82px;padding-left:12px;padding-right:12px}
+.collapsed .brand{padding:3px 0 34px;justify-content:center}
+.collapsed .brand-text,.collapsed .side-label,.collapsed .nav-text,.collapsed .sidebar-bottom{display:none}
+.collapsed .nav-item{justify-content:center;gap:0;padding:14px 8px}
+.collapsed .brand-icon{flex-shrink:0}
+}
+@media(max-width:900px){.sidebar.collapsed{width:260px}.sidebar.collapsed .brand-text,.sidebar.collapsed .side-label,.sidebar.collapsed .nav-text,.sidebar.collapsed .sidebar-bottom{display:initial}}
