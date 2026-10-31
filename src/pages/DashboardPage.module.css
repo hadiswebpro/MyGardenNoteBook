@@ -1,0 +1,2 @@
+.page{min-width:0}
+.page :global(.hero){box-shadow:0 12px 35px #b98a8a12}.page :global(.stat){transition:transform .2s}.page :global(.stat:hover){transform:translateY(-3px)}.page :global(.dashboard-grid){align-items:stretch}
