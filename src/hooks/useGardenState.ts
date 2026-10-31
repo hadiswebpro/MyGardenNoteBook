@@ -11,7 +11,7 @@ const blankForm=():GardenForm=>({title:"",description:"",content:"",color:garden
 export default function useGardenState(){
  const[data,setData]=useLocalStorage(storageKey,readGarden);
  const[page,setPage]=useState<Page>("Dashboard"),[mobile,setMobile]=useState(false),[search,setSearch]=useState(""),[filter,setFilter]=useState(""),[noteKind,setNoteKind]=useState<"note"|"journal">("note"),[month,setMonth]=useState(new Date());
- const[sidebarCollapsed,setSidebarCollapsed]=useState(false);
+ const[sidebarCollapsed,setSidebarCollapsed]=useState(true);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
  const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);
  const{dark,setDark}=useTheme();
