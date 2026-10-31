@@ -14,7 +14,7 @@ const items = [
 ] as const satisfies ReadonlyArray<{name:Page;icon:typeof LayoutDashboard}>;
 
 export default function Sidebar(){
-  const {page,mobile,setMobile,go}=useGarden();
+  const {page,mobile,setMobile,sidebarCollapsed,go}=useGarden();
 
   useEffect(()=>{
     if(!mobile)return;
@@ -27,16 +27,16 @@ export default function Sidebar(){
 
   return <>
     {mobile&&<button type="button" className={styles["mobile-shade"]} aria-label="Close navigation menu" onClick={()=>setMobile(false)}/>}
-    <aside id="garden-sidebar" className={`${styles.sidebar} ${mobile?styles.open:""}`} aria-label="Main navigation">
+    <aside id="garden-sidebar" className={`${styles.sidebar} ${mobile?styles.open:""} ${sidebarCollapsed?styles.collapsed:""}`} aria-label="Main navigation">
       <div className={styles.brand}>
         <span className={styles["brand-icon"]}><Flower2 size={26}/></span>
-        <div><strong>my garden</strong><small>NOTEBOOK ♡</small></div>
+        <div className={styles["brand-text"]}><strong>my garden</strong><small>NOTEBOOK ♡</small></div>
         <button type="button" className={`icon-btn ${styles["mobile-close"]}`} aria-label="Close navigation menu" onClick={()=>setMobile(false)}><X/></button>
       </div>
       <p className={styles["side-label"]}>YOUR SPACE</p>
       <nav>{items.map(({name,icon:Icon})=>
-        <button type="button" key={name} className={`${styles["nav-item"]} ${page===name?styles.active:""}`} onClick={()=>go(name)}>
-          <Icon size={19}/>{name}
+        <button type="button" key={name} className={`${styles["nav-item"]} ${page===name?styles.active:""}`} title={sidebarCollapsed?name:undefined} aria-label={name} onClick={()=>go(name)}>
+          <Icon size={19}/><span className={styles["nav-text"]}>{name}</span>
         </button>
       )}</nav>
       <div className={styles["sidebar-bottom"]}>
