@@ -14,7 +14,7 @@ const items = [
 ] as const satisfies ReadonlyArray<{name:Page;icon:typeof LayoutDashboard}>;
 
 export default function Sidebar(){
-  const {page,mobile,setMobile,sidebarCollapsed,go}=useGarden();
+  const {page,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,go}=useGarden();
 
   useEffect(()=>{
     if(!mobile)return;
@@ -31,7 +31,7 @@ export default function Sidebar(){
       <div className={styles.brand}>
         <span className={styles["brand-icon"]}><Flower2 size={26}/></span>
         <div className={styles["brand-text"]}><strong>my garden</strong><small>NOTEBOOK ♡</small></div>
-        <button type="button" className={`icon-btn ${styles["mobile-close"]}`} aria-label="Close navigation menu" onClick={()=>setMobile(false)}><X/></button>
+        <button type="button" className={`icon-btn ${styles["mobile-close"]}`} aria-label="Close sidebar" onClick={()=>{if(window.matchMedia("(max-width: 900px)").matches)setMobile(false);else setSidebarCollapsed(true)}}><X/></button>
       </div>
       <p className={styles["side-label"]}>YOUR SPACE</p>
       <nav>{items.map(({name,icon:Icon})=>
