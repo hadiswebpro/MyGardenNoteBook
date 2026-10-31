@@ -11,6 +11,7 @@ const blankForm=():GardenForm=>({title:"",description:"",content:"",color:garden
 export default function useGardenState(){
  const[data,setData]=useLocalStorage(storageKey,readGarden);
  const[page,setPage]=useState<Page>("Dashboard"),[mobile,setMobile]=useState(false),[search,setSearch]=useState(""),[filter,setFilter]=useState(""),[noteKind,setNoteKind]=useState<"note"|"journal">("note"),[month,setMonth]=useState(new Date());
+ const[sidebarCollapsed,setSidebarCollapsed]=useState(false);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
  const{dark,setDark}=useTheme();
  const upcoming=useMemo(()=>data.tasks.filter(t=>!t.done).sort((a,b)=>a.due.localeCompare(b.due)),[data.tasks]);
@@ -31,5 +32,5 @@ export default function useGardenState(){
  const toggleTask=(id:string)=>setData(d=>({...d,tasks:d.tasks.map(t=>t.id===id?{...t,done:!t.done}:t)}));
  const togglePin=(id:string)=>setData(d=>({...d,notes:d.notes.map(n=>n.id===id?{...n,pinned:!n.pinned}:n)}));
  const importData=async(file?:File)=>{if(!file)return;try{const value:unknown=JSON.parse(await file.text());if(!isGardenData(value))throw Error("Invalid backup");if(window.confirm("Replace current data with this backup?"))setData(value);}catch{window.alert("Invalid backup file.");}};
- return{data,page,setPage,mobile,setMobile,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
+ return{data,page,setPage,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
 }
