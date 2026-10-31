@@ -1,0 +1,1 @@
+import styles from "./GardenQuote.module.css";export default function GardenQuote(){return <section className={styles.quote}><span>❀</span><small className="eyebrow">A NOTE FOR YOU</small><h3>Good things take <em>time to bloom.</em></h3><p>Be gentle with yourself. You're growing, one day at a time.</p><small>with love, your garden ♡</small></section>}

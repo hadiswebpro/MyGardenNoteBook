@@ -1,0 +1,1 @@
+.search{height:48px;display:flex;align-items:center;gap:12px;padding:0 17px;background:#fff;border:1px solid #ece6df;border-radius:12px;margin-bottom:25px;color:#a89c91}.search input{width:100%;border:0;outline:0;background:transparent;color:inherit}:global([data-theme="dark"]) .search{background:#302d2e;border-color:#464041}

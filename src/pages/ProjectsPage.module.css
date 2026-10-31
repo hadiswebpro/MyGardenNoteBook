@@ -1,2 +1,0 @@
-.page{min-width:0}
-.page :global(.project-card){transition:transform .2s,box-shadow .2s}.page :global(.project-card:hover){transform:translateY(-4px);box-shadow:0 12px 30px #69564d13}

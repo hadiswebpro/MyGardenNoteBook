@@ -1,2 +1,1 @@
-.page{min-width:0}
-.page :global(.calendar-day){transition:background .15s}.page :global(.calendar-day:hover){background:#b68c8c12}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:20px}@media(max-width:900px){.layout{grid-template-columns:1fr}}

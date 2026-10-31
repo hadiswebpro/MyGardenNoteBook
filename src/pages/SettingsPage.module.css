@@ -1,2 +1,1 @@
-.page{min-width:0}
-.page :global(.settings-grid){align-items:start}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}.panel{background:#fffefa;border:1px solid #eee8e0;border-radius:17px;padding:25px}.panel p{margin:14px 0;color:#968d83;line-height:1.7}.hidden{display:none}:global([data-theme="dark"]) .panel{background:#302d2e;border-color:#464041}@media(max-width:600px){.grid{grid-template-columns:1fr}}

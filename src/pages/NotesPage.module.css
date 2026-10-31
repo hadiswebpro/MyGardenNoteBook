@@ -1,2 +1,0 @@
-.page{min-width:0}
-.page :global(.note-card){transition:transform .2s}.page :global(.note-card:hover){transform:translateY(-3px)}

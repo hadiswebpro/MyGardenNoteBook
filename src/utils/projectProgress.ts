@@ -1,0 +1,1 @@
+import type{Task}from "../types/garden";export function projectProgress(tasks:Task[],id:string){const list=tasks.filter(t=>t.projectId===id);return list.length?Math.round(list.filter(t=>t.done).length/list.length*100):0;}

@@ -1,0 +1,3 @@
+import styles from "./Header.module.css";
+import{Menu,Moon,Sun}from "lucide-react";import{useGarden}from "../../context/GardenContext";
+export default function Header(){const{page,setMobile,dark,setDark}=useGarden();return <header className="topbar"><div className="top-left"><button className="icon-btn menu-btn" aria-label="Open menu" onClick={()=>setMobile(true)}><Menu/></button><span>My Garden <b>/</b> <strong>{page}</strong></span></div><div className="top-right"><button className="icon-btn" aria-label="Toggle dark mode" onClick={()=>setDark(!dark)}>{dark?<Sun size={20}/>:<Moon size={20}/>}</button><span className="avatar">H</span></div></header>;}
