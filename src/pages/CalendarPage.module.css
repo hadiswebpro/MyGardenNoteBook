@@ -1,0 +1,2 @@
+.page{min-width:0}
+.page :global(.calendar-day){transition:background .15s}.page :global(.calendar-day:hover){background:#b68c8c12}
