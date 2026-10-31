@@ -15,8 +15,8 @@
 }
 @media(max-width:900px){.sidebar.collapsed{width:260px}.sidebar.collapsed .brand-text,.sidebar.collapsed .side-label,.sidebar.collapsed .nav-text,.sidebar.collapsed .sidebar-bottom{display:initial}}
 
-/* The X button is for the mobile drawer only. Never display it in desktop rail mode. */
+/* Desktop: show X only while sidebar is expanded. */
 @media(min-width:901px){
-  .sidebar .mobile-close{display:none!important;visibility:hidden;pointer-events:none}
-  .collapsed .mobile-close{display:none!important}
+  .sidebar:not(.collapsed) .mobile-close{display:grid;margin-left:auto;flex-shrink:0;cursor:pointer}
+  .sidebar.collapsed .mobile-close{display:none;pointer-events:none}
 }
