@@ -1,0 +1,2 @@
+.page{min-width:0}
+.page :global(.task-row:last-child){border-bottom:0}.page :global(.task-row:hover){background:#c2a2a209}
