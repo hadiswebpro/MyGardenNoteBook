@@ -1,1 +1,3 @@
-import React from "react";import{createRoot}from"react-dom/client";import App from "./App";import "./styles/global.css";createRoot(document.getElementById("root")!).render(<React.StrictMode><App/></React.StrictMode>);
+import React from "react";import{createRoot}from"react-dom/client";import App from "./App";import "./styles/global.css";
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("/MyGardenNoteBook/sw.js",{scope:"/MyGardenNoteBook/"}).catch(error=>console.error("Service worker registration failed:",error));});}
+createRoot(document.getElementById("root")!).render(<React.StrictMode><App/></React.StrictMode>);
