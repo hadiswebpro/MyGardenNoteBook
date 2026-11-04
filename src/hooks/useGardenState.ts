@@ -13,7 +13,7 @@ export default function useGardenState(){
  const[page,setPage]=useState<Page>("Dashboard"),[mobile,setMobile]=useState(false),[search,setSearch]=useState(""),[filter,setFilter]=useState(""),[noteKind,setNoteKind]=useState<"note"|"journal">("note"),[month,setMonth]=useState(new Date());
  const[sidebarCollapsed,setSidebarCollapsed]=useState(true);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
- const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);
+ const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);\n const[dialog,setDialog]=useState<{title:string;message:string;confirmLabel?:string;onConfirm?:()=>void}|null>(null);\n const requestDialog=(title:string,message:string,onConfirm?:()=>void,confirmLabel?:string)=>setDialog({title,message,onConfirm,confirmLabel});\n const closeDialog=()=>setDialog(null);\n const confirmDialog=()=>{const action=dialog?.onConfirm;setDialog(null);action?.();};
  const[profileName,setProfileName]=useLocalStorage<string>("garden-profile-name",()=>"H");
  const[profileImage,setProfileImage]=useLocalStorage<string|null>("garden-profile-image",()=>null);
  const{dark,setDark}=useTheme();
@@ -34,6 +34,6 @@ export default function useGardenState(){
  setData(d=>type==="project"?{...d,projects:d.projects.filter(x=>x.id!==id),tasks:d.tasks.map(t=>t.projectId===id?{...t,projectId:""}:t)}:type==="task"?{...d,tasks:d.tasks.filter(x=>x.id!==id)}:{...d,notes:d.notes.filter(x=>x.id!==id)});};
  const toggleTask=(id:string)=>setData(d=>({...d,tasks:d.tasks.map(t=>t.id===id?{...t,done:!t.done}:t)}));
  const togglePin=(id:string)=>setData(d=>({...d,notes:d.notes.map(n=>n.id===id?{...n,pinned:!n.pinned}:n)}));
- const importData=async(file?:File)=>{if(!file)return;try{const value:unknown=JSON.parse(await file.text());if(!isGardenData(value))throw Error("Invalid backup");if(window.confirm("Replace current data with this backup?"))setData(value);}catch{window.alert("Invalid backup file.");}};
- return{data,page,setPage,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,projectTaskDrafts,setProjectTaskDrafts,profileName,setProfileName,profileImage,setProfileImage,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
+ const importData=async(file?:File)=>{if(!file)return;try{const value:unknown=JSON.parse(await file.text());if(!isGardenData(value))throw Error("Invalid backup");requestDialog("Replace garden data?","This will replace your current projects, tasks, and notes with the backup. This action cannot be undone.",()=>setData(value),"Replace data");}catch{requestDialog("Invalid backup","This file is not a valid Garden Notebook backup.");}};
+ return{data,page,setPage,dialog,requestDialog,closeDialog,confirmDialog,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,projectTaskDrafts,setProjectTaskDrafts,profileName,setProfileName,profileImage,setProfileImage,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
 }
