@@ -14,8 +14,8 @@ export default function useGardenState(){
  const[sidebarCollapsed,setSidebarCollapsed]=useState(true);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
  const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);
- const[profileName,setProfileName]=useLocalStorage("garden-profile-name","H");
- const[profileImage,setProfileImage]=useLocalStorage<string|null>("garden-profile-image",null);
+ const[profileName,setProfileName]=useLocalStorage<string>("garden-profile-name",()=>"H");
+ const[profileImage,setProfileImage]=useLocalStorage<string|null>("garden-profile-image",()=>null);
  const{dark,setDark}=useTheme();
  const upcoming=useMemo(()=>data.tasks.filter(t=>!t.done&&!!t.due).sort((a,b)=>(a.due??"").localeCompare(b.due??"")),[data.tasks]);
  const progress=(id:string)=>projectProgress(data.tasks,id);
