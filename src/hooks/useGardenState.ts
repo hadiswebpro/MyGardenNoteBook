@@ -13,7 +13,11 @@ export default function useGardenState(){
  const[page,setPage]=useState<Page>("Dashboard"),[mobile,setMobile]=useState(false),[search,setSearch]=useState(""),[filter,setFilter]=useState(""),[noteKind,setNoteKind]=useState<"note"|"journal">("note"),[month,setMonth]=useState(new Date());
  const[sidebarCollapsed,setSidebarCollapsed]=useState(true);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
- const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);\n const[dialog,setDialog]=useState<{title:string;message:string;confirmLabel?:string;onConfirm?:()=>void}|null>(null);\n const requestDialog=(title:string,message:string,onConfirm?:()=>void,confirmLabel?:string)=>setDialog({title,message,onConfirm,confirmLabel});\n const closeDialog=()=>setDialog(null);\n const confirmDialog=()=>{const action=dialog?.onConfirm;setDialog(null);action?.();};
+ const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);
+ const[dialog,setDialog]=useState<{title:string;message:string;confirmLabel?:string;onConfirm?:()=>void}|null>(null);
+ const requestDialog=(title:string,message:string,onConfirm?:()=>void,confirmLabel?:string)=>setDialog({title,message,onConfirm,confirmLabel});
+ const closeDialog=()=>setDialog(null);
+ const confirmDialog=()=>{const action=dialog?.onConfirm;setDialog(null);action?.();};
  const[profileName,setProfileName]=useLocalStorage<string>("garden-profile-name",()=>"H");
  const[profileImage,setProfileImage]=useLocalStorage<string|null>("garden-profile-image",()=>null);
  const{dark,setDark}=useTheme();
