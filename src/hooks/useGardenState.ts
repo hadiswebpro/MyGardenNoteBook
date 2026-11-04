@@ -14,6 +14,8 @@ export default function useGardenState(){
  const[sidebarCollapsed,setSidebarCollapsed]=useState(true);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
  const[projectTaskDrafts,setProjectTaskDrafts]=useState<string[]>([]);
+ const[profileName,setProfileName]=useLocalStorage("garden-profile-name","H");
+ const[profileImage,setProfileImage]=useLocalStorage<string|null>("garden-profile-image",null);
  const{dark,setDark}=useTheme();
  const upcoming=useMemo(()=>data.tasks.filter(t=>!t.done&&!!t.due).sort((a,b)=>(a.due??"").localeCompare(b.due??"")),[data.tasks]);
  const progress=(id:string)=>projectProgress(data.tasks,id);
@@ -33,5 +35,5 @@ export default function useGardenState(){
  const toggleTask=(id:string)=>setData(d=>({...d,tasks:d.tasks.map(t=>t.id===id?{...t,done:!t.done}:t)}));
  const togglePin=(id:string)=>setData(d=>({...d,notes:d.notes.map(n=>n.id===id?{...n,pinned:!n.pinned}:n)}));
  const importData=async(file?:File)=>{if(!file)return;try{const value:unknown=JSON.parse(await file.text());if(!isGardenData(value))throw Error("Invalid backup");if(window.confirm("Replace current data with this backup?"))setData(value);}catch{window.alert("Invalid backup file.");}};
- return{data,page,setPage,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,projectTaskDrafts,setProjectTaskDrafts,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
+ return{data,page,setPage,mobile,setMobile,sidebarCollapsed,setSidebarCollapsed,search,setSearch,filter,setFilter,noteKind,setNoteKind,month,setMonth,modal,setModal,editing,form,setForm,projectTaskDrafts,setProjectTaskDrafts,profileName,setProfileName,profileImage,setProfileImage,dark,setDark,upcoming,progress,go,open,save,remove,toggleTask,togglePin,exportData:()=>downloadGarden(data),importData};
 }
