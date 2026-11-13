@@ -1,4 +1,4 @@
-import{AlertTriangle,CheckCircle2,Info,X}from "lucide-react";
+import{AlertTriangle,Info,X}from "lucide-react";
 import{useGarden}from "../../context/GardenContext";
 import styles from "./ActionDialog.module.css";
 export default function ActionDialog(){
