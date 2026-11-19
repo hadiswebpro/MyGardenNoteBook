@@ -4,12 +4,12 @@ import type{EditorKind,GardenForm,Note,Page,Project,Task}from "../types/garden";
 import{gardenColors}from "../constants/colors";
 import{today}from "../utils/date";
 import{projectProgress}from "../utils/projectProgress";
-import{downloadGarden,isGardenData,readGarden,storageKey}from "../utils/storage";
+import{downloadGarden,isGardenData,starterData,storageKey}from "../utils/storage";
 import useLocalStorage from "./useLocalStorage";
 import useTheme from "./useTheme";
 const blankForm=():GardenForm=>({title:"",description:"",content:"",color:gardenColors[0],projectId:"",due:"",date:today(),kind:"note"});
 export default function useGardenState(){
- const[data,setData]=useLocalStorage(storageKey,readGarden);
+ const[data,setData]=useLocalStorage(storageKey,()=>starterData,isGardenData);
  const[page,setPage]=useState<Page>("Dashboard"),[mobile,setMobile]=useState(false),[search,setSearch]=useState(""),[filter,setFilter]=useState(""),[noteKind,setNoteKind]=useState<"note"|"journal">("note"),[month,setMonth]=useState(new Date());
  const[sidebarCollapsed,setSidebarCollapsed]=useState(true);
  const[modal,setModal]=useState<EditorKind|null>(null),[editing,setEditing]=useState<string|null>(null),[form,setForm]=useState<GardenForm>(blankForm);
