@@ -1,1 +1,4 @@
-import TaskList from "../components/tasks/TaskList";export default function TasksPage(){return <TaskList/>}
+import TaskList from "../components/tasks/TaskList";
+export default function TasksPage() {
+  return <TaskList />;
+}

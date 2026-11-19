@@ -1,1 +1,26 @@
-import{Check}from "lucide-react";import{gardenColors}from "../../constants/colors";import{useGarden}from "../../context/GardenContext";import styles from "./ColorPicker.module.css";export default function ColorPicker(){const{form,setForm}=useGarden();return <div className={styles.field}>Choose a color<div className={styles.swatches}>{gardenColors.map(color=><button type="button" key={color} className={form.color===color?styles.selected:""} style={{background:color}} aria-label={"Color "+color} onClick={()=>setForm({...form,color})}>{form.color===color&&<Check size={16}/>}</button>)}</div></div>}
+import { Check } from "lucide-react";
+import { gardenColors } from "../../constants/colors";
+import { useGarden } from "../../context/GardenContext";
+import styles from "./ColorPicker.module.css";
+export default function ColorPicker() {
+  const { form, setForm } = useGarden();
+  return (
+    <div className={styles.field}>
+      Choose a color
+      <div className={styles.swatches}>
+        {gardenColors.map((color) => (
+          <button
+            type="button"
+            key={color}
+            className={form.color === color ? styles.selected : ""}
+            style={{ background: color }}
+            aria-label={"Color " + color}
+            onClick={() => setForm({ ...form, color })}
+          >
+            {form.color === color && <Check size={16} />}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}

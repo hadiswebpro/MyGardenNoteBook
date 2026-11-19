@@ -1,2 +1,48 @@
-import{X}from "lucide-react";import{useGarden}from "../../context/GardenContext";import ProjectForm from "../projects/ProjectForm";import TaskForm from "../tasks/TaskForm";import NoteForm from "../notes/NoteForm";import styles from "./GardenModal.module.css";
-export default function GardenModal(){const{modal,setModal,editing}=useGarden();if(!modal)return null;return <div className={styles.backdrop} onMouseDown={e=>{if(e.target===e.currentTarget)setModal(null)}}><div className={styles.dialog} role="dialog" aria-modal="true" aria-label={"Edit "+modal}><div className="modal-head"><div><span className="eyebrow">A LITTLE SOMETHING NEW</span><h2>{editing?"Edit":"Create"} {modal} ✿</h2></div><button className="icon-btn" aria-label="Close" onClick={()=>setModal(null)}><X/></button></div>{modal==="project"?<ProjectForm/>:modal==="task"?<TaskForm/>:<NoteForm/>}</div></div>;}
+import { X } from "lucide-react";
+import { useGarden } from "../../context/GardenContext";
+import ProjectForm from "../projects/ProjectForm";
+import TaskForm from "../tasks/TaskForm";
+import NoteForm from "../notes/NoteForm";
+import styles from "./GardenModal.module.css";
+export default function GardenModal() {
+  const { modal, setModal, editing } = useGarden();
+  if (!modal) return null;
+  return (
+    <div
+      className={styles.backdrop}
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) setModal(null);
+      }}
+    >
+      <div
+        className={styles.dialog}
+        role="dialog"
+        aria-modal="true"
+        aria-label={"Edit " + modal}
+      >
+        <div className="modal-head">
+          <div>
+            <span className="eyebrow">A LITTLE SOMETHING NEW</span>
+            <h2>
+              {editing ? "Edit" : "Create"} {modal} ✿
+            </h2>
+          </div>
+          <button
+            className="icon-btn"
+            aria-label="Close"
+            onClick={() => setModal(null)}
+          >
+            <X />
+          </button>
+        </div>
+        {modal === "project" ? (
+          <ProjectForm />
+        ) : modal === "task" ? (
+          <TaskForm />
+        ) : (
+          <NoteForm />
+        )}
+      </div>
+    </div>
+  );
+}

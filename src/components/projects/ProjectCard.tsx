@@ -1,1 +1,51 @@
-import{Pencil,Trash2,Flower2,ArrowUpRight}from "lucide-react";import type{Project}from "../../types/garden";import{useGarden}from "../../context/GardenContext";import styles from "./ProjectCard.module.css";export default function ProjectCard({project}:{project:Project}){const{open,remove,progress,go,setFilter}=useGarden();const percent=progress(project.id);return <article className={styles.card}><span className={styles.flower} style={{background:project.color+"25",color:project.color}}><Flower2/></span><div className={styles.actions}><button className="icon-btn" aria-label="Edit" onClick={()=>open("project",project.id)}><Pencil size={15}/></button><button className="icon-btn danger" aria-label="Delete" onClick={()=>remove("project",project.id)}><Trash2 size={15}/></button></div><h3>{project.name}</h3><p>{project.description||"A new idea waiting to grow."}</p><div className={styles.label}>Progress <strong>{percent}%</strong></div><div className={styles.progress}><span style={{width:percent+"%",background:project.color}}/></div><button className="text-btn" onClick={()=>{go("Tasks");setFilter(project.id)}}>View tasks <ArrowUpRight size={15}/></button></article>}
+import { Pencil, Trash2, Flower2, ArrowUpRight } from "lucide-react";
+import type { Project } from "../../types/garden";
+import { useGarden } from "../../context/GardenContext";
+import styles from "./ProjectCard.module.css";
+export default function ProjectCard({ project }: { project: Project }) {
+  const { open, remove, progress, go, setFilter } = useGarden();
+  const percent = progress(project.id);
+  return (
+    <article className={styles.card}>
+      <span
+        className={styles.flower}
+        style={{ background: project.color + "25", color: project.color }}
+      >
+        <Flower2 />
+      </span>
+      <div className={styles.actions}>
+        <button
+          className="icon-btn"
+          aria-label="Edit"
+          onClick={() => open("project", project.id)}
+        >
+          <Pencil size={15} />
+        </button>
+        <button
+          className="icon-btn danger"
+          aria-label="Delete"
+          onClick={() => remove("project", project.id)}
+        >
+          <Trash2 size={15} />
+        </button>
+      </div>
+      <h3>{project.name}</h3>
+      <p>{project.description || "A new idea waiting to grow."}</p>
+      <div className={styles.label}>
+        Progress <strong>{percent}%</strong>
+      </div>
+      <div className={styles.progress}>
+        <span style={{ width: percent + "%", background: project.color }} />
+      </div>
+      <button
+        className="text-btn"
+        onClick={() => {
+          go("Tasks");
+          setFilter(project.id);
+        }}
+      >
+        View tasks <ArrowUpRight size={15} />
+      </button>
+    </article>
+  );
+}

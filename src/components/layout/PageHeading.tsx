@@ -1,3 +1,61 @@
-import{Plus}from "lucide-react";import{useGarden}from "../../context/GardenContext";import SearchBar from "../common/SearchBar";import styles from "./PageHeading.module.css";
-const copy={"Projects":["Your little projects","Every great thing begins with a tiny seed."],"Tasks":["Things to nurture","One gentle step at a time."],"Notes & Journal":["Thoughts & little stories","A safe place for all your words."],"Calendar":["A season of plans","See the little things waiting for you."],"Settings":["Make it yours","Your garden, your way."]} as const;
-export default function PageHeading(){const{page,open}=useGarden();if(page==="Dashboard")return null;const title=copy[page];const editable=page==="Projects"||page==="Tasks"||page==="Notes & Journal";return <div className={styles.heading}><div className="page-title"><div><span className="eyebrow">MY GARDEN NOTEBOOK · {page.toUpperCase()}</span><h1>{title[0]} <span>✿</span></h1><p>{title[1]}</p></div>{editable&&<button className="primary" onClick={()=>open(page==="Projects"?"project":page==="Tasks"?"task":"note")}><Plus size={17}/> New {page==="Projects"?"project":page==="Tasks"?"task":"note"}</button>}</div>{editable&&<SearchBar/>}</div>;}
+import { Plus } from "lucide-react";
+import { useGarden } from "../../context/GardenContext";
+import SearchBar from "../common/SearchBar";
+import styles from "./PageHeading.module.css";
+const copy = {
+  Projects: [
+    "Your little projects",
+    "Every great thing begins with a tiny seed.",
+  ],
+  Tasks: ["Things to nurture", "One gentle step at a time."],
+  "Notes & Journal": [
+    "Thoughts & little stories",
+    "A safe place for all your words.",
+  ],
+  Calendar: ["A season of plans", "See the little things waiting for you."],
+  Settings: ["Make it yours", "Your garden, your way."],
+} as const;
+export default function PageHeading() {
+  const { page, open } = useGarden();
+  if (page === "Dashboard") return null;
+  const title = copy[page];
+  const editable =
+    page === "Projects" || page === "Tasks" || page === "Notes & Journal";
+  return (
+    <div className={styles.heading}>
+      <div className="page-title">
+        <div>
+          <span className="eyebrow">
+            MY GARDEN NOTEBOOK · {page.toUpperCase()}
+          </span>
+          <h1>
+            {title[0]} <span>✿</span>
+          </h1>
+          <p>{title[1]}</p>
+        </div>
+        {editable && (
+          <button
+            className="primary"
+            onClick={() =>
+              open(
+                page === "Projects"
+                  ? "project"
+                  : page === "Tasks"
+                    ? "task"
+                    : "note",
+              )
+            }
+          >
+            <Plus size={17} /> New{" "}
+            {page === "Projects"
+              ? "project"
+              : page === "Tasks"
+                ? "task"
+                : "note"}
+          </button>
+        )}
+      </div>
+      {editable && <SearchBar />}
+    </div>
+  );
+}

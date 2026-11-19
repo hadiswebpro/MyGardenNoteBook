@@ -11,30 +11,53 @@ export default function CalendarView() {
   const offset = new Date(month.getFullYear(), month.getMonth(), 1).getDay();
   const days = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
   const selectedTasks = data.tasks.filter((task) => task.due === selectedDate);
-  const selectedDateLabel = new Date(`${selectedDate}T00:00:00`).toLocaleDateString(
-    "en-US",
-    { weekday: "long", month: "long", day: "numeric", year: "numeric" }
-  );
+  const selectedDateLabel = new Date(
+    `${selectedDate}T00:00:00`,
+  ).toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   function changeMonth(direction: number) {
-    const nextMonth = new Date(month.getFullYear(), month.getMonth() + direction, 1);
+    const nextMonth = new Date(
+      month.getFullYear(),
+      month.getMonth() + direction,
+      1,
+    );
     setMonth(nextMonth);
-    setSelectedDate([
-      nextMonth.getFullYear(),
-      String(nextMonth.getMonth() + 1).padStart(2, "0"),
-      "01",
-    ].join("-"));
+    setSelectedDate(
+      [
+        nextMonth.getFullYear(),
+        String(nextMonth.getMonth() + 1).padStart(2, "0"),
+        "01",
+      ].join("-"),
+    );
   }
 
   return (
     <section className={styles.panel}>
       <div className={styles.heading}>
-        <h3>{month.toLocaleDateString("en-US", { month: "long", year: "numeric" })}</h3>
+        <h3>
+          {month.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+          })}
+        </h3>
         <div>
-          <button className="icon-btn" aria-label="Previous month" onClick={() => changeMonth(-1)}>
+          <button
+            className="icon-btn"
+            aria-label="Previous month"
+            onClick={() => changeMonth(-1)}
+          >
             <ChevronLeft />
           </button>
-          <button className="icon-btn" aria-label="Next month" onClick={() => changeMonth(1)}>
+          <button
+            className="icon-btn"
+            aria-label="Next month"
+            onClick={() => changeMonth(1)}
+          >
             <ChevronRight />
           </button>
         </div>
@@ -42,7 +65,9 @@ export default function CalendarView() {
 
       <div className={styles.grid}>
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-          <span className={styles.weekday} key={day}>{day}</span>
+          <span className={styles.weekday} key={day}>
+            {day}
+          </span>
         ))}
         {Array.from({ length: offset }, (_, index) => (
           <span key={`blank-${index}`} />
@@ -64,7 +89,9 @@ export default function CalendarView() {
               className={[
                 isToday ? styles.today : styles.day,
                 isSelected ? styles.selected : "",
-              ].filter(Boolean).join(" ")}
+              ]
+                .filter(Boolean)
+                .join(" ")}
               onClick={() => setSelectedDate(date)}
               aria-pressed={isSelected}
               aria-label={`${date}, ${count} ${count === 1 ? "task" : "tasks"}`}
@@ -83,32 +110,47 @@ export default function CalendarView() {
             <p>{selectedDateLabel}</p>
           </div>
           <span className={styles.taskCount}>
-            {selectedTasks.length} {selectedTasks.length === 1 ? "task" : "tasks"}
+            {selectedTasks.length}{" "}
+            {selectedTasks.length === 1 ? "task" : "tasks"}
           </span>
         </div>
 
         {selectedTasks.length > 0 ? (
           <ul className={styles.taskList}>
             {selectedTasks.map((task) => {
-              const project = data.projects.find((item) => item.id === task.projectId);
+              const project = data.projects.find(
+                (item) => item.id === task.projectId,
+              );
               return (
                 <li className={styles.task} key={task.id}>
                   {task.done ? (
-                    <CircleCheck className={styles.taskIcon} aria-label="Completed" />
+                    <CircleCheck
+                      className={styles.taskIcon}
+                      aria-label="Completed"
+                    />
                   ) : (
-                    <Circle className={styles.taskIcon} aria-label="Not completed" />
+                    <Circle
+                      className={styles.taskIcon}
+                      aria-label="Not completed"
+                    />
                   )}
                   <div className={styles.taskInfo}>
-                    <span className={task.done ? styles.completedTask : ""}>{task.title}</span>
+                    <span className={task.done ? styles.completedTask : ""}>
+                      {task.title}
+                    </span>
                     {project && <small>{project.name}</small>}
                   </div>
-                  {task.done && <span className={styles.completedLabel}>Completed</span>}
+                  {task.done && (
+                    <span className={styles.completedLabel}>Completed</span>
+                  )}
                 </li>
               );
             })}
           </ul>
         ) : (
-          <p className={styles.emptyState}>You don’t have any tasks for this day.</p>
+          <p className={styles.emptyState}>
+            You don’t have any tasks for this day.
+          </p>
         )}
       </section>
     </section>

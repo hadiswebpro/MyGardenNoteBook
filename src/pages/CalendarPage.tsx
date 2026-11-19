@@ -1,1 +1,11 @@
-import CalendarView from "../components/calendar/CalendarView";import UpcomingReminders from "../components/calendar/UpcomingReminders";import styles from "./CalendarPage.module.css";export default function CalendarPage(){return <div className={styles.layout}><CalendarView/><UpcomingReminders/></div>}
+import CalendarView from "../components/calendar/CalendarView";
+import UpcomingReminders from "../components/calendar/UpcomingReminders";
+import styles from "./CalendarPage.module.css";
+export default function CalendarPage() {
+  return (
+    <div className={styles.layout}>
+      <CalendarView />
+      <UpcomingReminders />
+    </div>
+  );
+}

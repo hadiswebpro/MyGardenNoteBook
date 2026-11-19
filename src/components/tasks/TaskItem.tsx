@@ -1,1 +1,42 @@
-import{Check,Pencil,Trash2}from "lucide-react";import type{Task}from "../../types/garden";import{useGarden}from "../../context/GardenContext";import styles from "./TaskItem.module.css";export default function TaskItem({task}:{task:Task}){const{data,toggleTask,open,remove}=useGarden();return <div className={styles.row}><button className={task.done?styles.checked:styles.check} aria-label="Toggle task" onClick={()=>toggleTask(task.id)}>{task.done&&<Check size={14}/>}</button><div className={styles.copy}><strong className={task.done?styles.crossed:""}>{task.title}</strong><small>{data.projects.find(p=>p.id===task.projectId)?.name||"Personal"} · {task.due||"No date"}</small></div><button className="icon-btn" aria-label="Edit" onClick={()=>open("task",task.id)}><Pencil size={15}/></button><button className="icon-btn danger" aria-label="Delete" onClick={()=>remove("task",task.id)}><Trash2 size={15}/></button></div>}
+import { Check, Pencil, Trash2 } from "lucide-react";
+import type { Task } from "../../types/garden";
+import { useGarden } from "../../context/GardenContext";
+import styles from "./TaskItem.module.css";
+export default function TaskItem({ task }: { task: Task }) {
+  const { data, toggleTask, open, remove } = useGarden();
+  return (
+    <div className={styles.row}>
+      <button
+        className={task.done ? styles.checked : styles.check}
+        aria-label="Toggle task"
+        onClick={() => toggleTask(task.id)}
+      >
+        {task.done && <Check size={14} />}
+      </button>
+      <div className={styles.copy}>
+        <strong className={task.done ? styles.crossed : ""}>
+          {task.title}
+        </strong>
+        <small>
+          {data.projects.find((p) => p.id === task.projectId)?.name ||
+            "Personal"}{" "}
+          · {task.due || "No date"}
+        </small>
+      </div>
+      <button
+        className="icon-btn"
+        aria-label="Edit"
+        onClick={() => open("task", task.id)}
+      >
+        <Pencil size={15} />
+      </button>
+      <button
+        className="icon-btn danger"
+        aria-label="Delete"
+        onClick={() => remove("task", task.id)}
+      >
+        <Trash2 size={15} />
+      </button>
+    </div>
+  );
+}

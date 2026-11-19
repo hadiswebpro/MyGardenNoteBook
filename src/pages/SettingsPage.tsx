@@ -1,1 +1,41 @@
-import{Moon,Sun,Download,Upload}from "lucide-react";import{useGarden}from "../context/GardenContext";import styles from "./SettingsPage.module.css";export default function SettingsPage(){const{dark,setDark,exportData,importData}=useGarden();return <div className={styles.grid}><section className={styles.panel}><h3>Appearance</h3><p>Choose the mood of your garden.</p><button className="outline" onClick={()=>setDark(!dark)}>{dark?<Sun size={17}/>:<Moon size={17}/>} Switch to {dark?"light":"dark"} mode</button></section><section className={styles.panel}><h3>Keep your memories safe</h3><p>Export your notes, projects and tasks to a backup file.</p><button className="outline" onClick={exportData}><Download size={17}/> Export backup</button><label className="outline"><Upload size={17}/> Import backup<input className={styles.hidden} type="file" accept=".json" onChange={e=>importData(e.target.files?.[0])}/></label></section><section className={styles.panel}><h3>About your data ♡</h3><p>Your information is saved in this browser using localStorage. It does not automatically sync across devices. Export backups regularly.</p></section></div>}
+import { Moon, Sun, Download, Upload } from "lucide-react";
+import { useGarden } from "../context/GardenContext";
+import styles from "./SettingsPage.module.css";
+export default function SettingsPage() {
+  const { dark, setDark, exportData, importData } = useGarden();
+  return (
+    <div className={styles.grid}>
+      <section className={styles.panel}>
+        <h3>Appearance</h3>
+        <p>Choose the mood of your garden.</p>
+        <button className="outline" onClick={() => setDark(!dark)}>
+          {dark ? <Sun size={17} /> : <Moon size={17} />} Switch to{" "}
+          {dark ? "light" : "dark"} mode
+        </button>
+      </section>
+      <section className={styles.panel}>
+        <h3>Keep your memories safe</h3>
+        <p>Export your notes, projects and tasks to a backup file.</p>
+        <button className="outline" onClick={exportData}>
+          <Download size={17} /> Export backup
+        </button>
+        <label className="outline">
+          <Upload size={17} /> Import backup
+          <input
+            className={styles.hidden}
+            type="file"
+            accept=".json"
+            onChange={(e) => importData(e.target.files?.[0])}
+          />
+        </label>
+      </section>
+      <section className={styles.panel}>
+        <h3>About your data ♡</h3>
+        <p>
+          Your information is saved in this browser using localStorage. It does
+          not automatically sync across devices. Export backups regularly.
+        </p>
+      </section>
+    </div>
+  );
+}

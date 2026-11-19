@@ -17,7 +17,13 @@ export const gardenColors = [
   "#b8a27b",
 ];
 
-const darkSwatches = new Set(["#702b35", "#a8323e", "#a66a3f", "#68734a", "#394b35"]);
+const darkSwatches = new Set([
+  "#702b35",
+  "#a8323e",
+  "#a66a3f",
+  "#68734a",
+  "#394b35",
+]);
 
 export function getGardenTextColor(background: string): string {
   return darkSwatches.has(background.toLowerCase()) ? "#fff8ef" : "#39352f";

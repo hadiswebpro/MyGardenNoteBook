@@ -1,1 +1,23 @@
-import WelcomeHero from "../components/dashboard/WelcomeHero";import DashboardOverview from "../components/dashboard/DashboardOverview";import GrowingProjects from "../components/dashboard/GrowingProjects";import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";import RecentNotes from "../components/dashboard/RecentNotes";import GardenQuote from "../components/dashboard/GardenQuote";import styles from "./DashboardPage.module.css";export default function DashboardPage(){return <><WelcomeHero/><DashboardOverview/><div className={styles.grid}><GrowingProjects/><UpcomingDeadlines/></div><div className={styles.grid}><RecentNotes/><GardenQuote/></div></>}
+import WelcomeHero from "../components/dashboard/WelcomeHero";
+import DashboardOverview from "../components/dashboard/DashboardOverview";
+import GrowingProjects from "../components/dashboard/GrowingProjects";
+import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
+import RecentNotes from "../components/dashboard/RecentNotes";
+import GardenQuote from "../components/dashboard/GardenQuote";
+import styles from "./DashboardPage.module.css";
+export default function DashboardPage() {
+  return (
+    <>
+      <WelcomeHero />
+      <DashboardOverview />
+      <div className={styles.grid}>
+        <GrowingProjects />
+        <UpcomingDeadlines />
+      </div>
+      <div className={styles.grid}>
+        <RecentNotes />
+        <GardenQuote />
+      </div>
+    </>
+  );
+}
